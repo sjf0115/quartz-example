@@ -20,6 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- 2.5.x 需要 JDK 11+ -->
         <quartz.version>2.4.1</quartz.version>
+        <lombok.version>1.18.26</lombok.version>
         <junit.version>4.12</junit.version>
         <log4j.version>2.17.1</log4j.version>
     </properties>
@@ -31,6 +32,13 @@
                 <groupId>org.quartz-scheduler</groupId>
                 <artifactId>quartz</artifactId>
                 <version>${quartz.version}</version>
+            </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
 
             <!-- Junit -->
