@@ -12,6 +12,8 @@
 
     <modules>
         <module>quartz-quick-start</module>
+        <module>spring-boot-quartz</module>
+        <module>spring-boot-quartz-dynamic</module>
     </modules>
 
     <properties>
