@@ -1,4 +1,4 @@
-package com.quartz.example.listener;
+package com.quartz.example.listener.job;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;

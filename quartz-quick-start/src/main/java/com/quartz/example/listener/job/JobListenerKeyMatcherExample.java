@@ -1,19 +1,20 @@
-package com.quartz.example.listener;
+package com.quartz.example.listener.job;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.quartz.impl.matchers.KeyMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 功能：注册全局作业监听器 JobListener 示例
+ * 功能：注册局部作业监听器 KeyMatcher 示例
  * 作者：@SmartSi
  * 博客：https://smartsi.blog.csdn.net/
  * 公众号：大数据生态
  * 日期：2025/12/7 08:40
  */
-public class JobListenerGlobalExample {
-    private static final Logger LOG = LoggerFactory.getLogger(JobListenerGlobalExample.class);
+public class JobListenerKeyMatcherExample {
+    private static final Logger LOG = LoggerFactory.getLogger(JobListenerKeyMatcherExample.class);
 
     public static void main(String[] args) throws SchedulerException {
         // 1. 调度器
@@ -25,7 +26,7 @@ public class JobListenerGlobalExample {
                 .build();
 
         JobDetail jobDetail2 = JobBuilder.newJob(Job2.class)
-                .withIdentity("job2", "group1") // 任务名称/任务分组名称
+                .withIdentity("job2", "group2") // 任务名称/任务分组名称
                 .build();
 
         // 3. 触发器
@@ -34,20 +35,30 @@ public class JobListenerGlobalExample {
                 .startNow() // 立即开始
                 .withSchedule(
                         SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(10)
-                        .withRepeatCount(3)) // 每10秒执行一次，重复执行3次
+                                .withIntervalInSeconds(10)
+                                .withRepeatCount(3)) // 每10秒执行一次，重复执行3次
                 .build();
 
         Trigger trigger2 = TriggerBuilder.newTrigger()
-                .withIdentity("trigger2", "group1") // 触发器名称/触发器分组名称
+                .withIdentity("trigger2", "group2") // 触发器名称/触发器分组名称
                 .startNow() // 立即开始
                 .withSchedule(SimpleScheduleBuilder
                         .repeatSecondlyForTotalCount(3, 20)) // 每20秒执行一次，重复执行3次
                 .build();
 
-        // 4. 监听器 添加全局Job监听
+
+        // 4. 监听器 添加局部Job监听
         MyJobListener myJobListener = new MyJobListener();
-        scheduler.getListenerManager().addJobListener(myJobListener);
+        scheduler.getListenerManager().addJobListener(
+                myJobListener,
+                KeyMatcher.keyEquals(JobKey.jobKey("job1", "group1"))
+        );
+
+        // 或者直接把 JobDetail 传进来，这样写
+        /*scheduler.getListenerManager().addJobListener(
+                myJobListener,
+                KeyMatcher.keyEquals(jobDetail.getKey())
+        );*/
 
         // 5. 将任务和触发器注册到调度器
         scheduler.scheduleJob(jobDetail1, trigger1);
