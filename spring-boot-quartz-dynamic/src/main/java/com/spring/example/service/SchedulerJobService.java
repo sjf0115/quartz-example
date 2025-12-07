@@ -1,8 +1,10 @@
 package com.spring.example.service;
 
 import com.spring.example.bean.SchedulerJob;
+import com.spring.example.job.HelloJob;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 功能：调度任务服务类
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 公众号：大数据生态
  * 日期：2025/12/6 14:15
  */
+@Service
 public class SchedulerJobService {
     @Autowired
     private Scheduler scheduler;
@@ -38,15 +41,10 @@ public class SchedulerJobService {
 
         // 4. 设置任务参数
         JobDataMap dataMap = jobDetail.getJobDataMap();
-        // dataMap.put("jobId", job.getId());
+        dataMap.put("jobName", job.getJobName());
 
         // 5. 将任务和触发器注册到调度器
         scheduler.scheduleJob(jobDetail, trigger);
-
-        // 6. 若状态为暂停，初始化为暂停状态
-        /*if (job.getStatus() == 0) {
-            pauseJob(job);
-        }*/
     }
 
     /**

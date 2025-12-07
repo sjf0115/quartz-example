@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootQuartzApplication {
+public class SpringBootQuartzDynamicApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootQuartzApplication.class, args);
+        SpringApplication.run(SpringBootQuartzDynamicApplication.class, args);
     }
 }

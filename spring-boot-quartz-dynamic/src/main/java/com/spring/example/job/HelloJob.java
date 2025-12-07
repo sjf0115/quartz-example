@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 功能：Job 示例
  * 作者：@SmartSi
@@ -20,8 +23,11 @@ public class HelloJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         // 从 JobDataMap 获取用户名称
-        String name = context.getJobDetail().getJobDataMap().getString("name");
+        String jobName = context.getJobDetail().getJobDataMap().getString("jobName");
         // 执行具体的业务逻辑
-        LOG.info("Welcome {} to Quartz! ", name);
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = dateFormat.format(date);
+        LOG.info("[{}] Welcome to Quartz: {}", time, jobName);
     }
 }
