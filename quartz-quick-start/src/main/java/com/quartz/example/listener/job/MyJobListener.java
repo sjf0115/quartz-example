@@ -17,7 +17,7 @@ import java.util.Date;
  * 日期：2025/12/7 19:45
  */
 public class MyJobListener implements JobListener {
-    private static final Logger LOG = LoggerFactory.getLogger(JobListenerGlobalExample.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MyJobListener.class);
 
     @Override
     public String getName() {
