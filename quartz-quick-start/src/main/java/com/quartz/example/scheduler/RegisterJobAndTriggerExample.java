@@ -1,16 +1,17 @@
-package com.quartz.example.trigger.simple;
+package com.quartz.example.scheduler;
 
+import com.quartz.example.trigger.simple.MyJob;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 /**
- * 功能：SimpleTrigger 示例
+ * 功能：注册 Job 和 Trigger 的两种方式
  * 作者：@SmartSi
  * 博客：https://smartsi.blog.csdn.net/
  * 公众号：大数据生态
  * 日期：2025/12/7 23:15
  */
-public class SimpleTriggerExample1 {
+public class RegisterJobAndTriggerExample {
 
     // 不为 Trigger 设置任务
     public static void triggerNoJob() throws SchedulerException {
@@ -43,27 +44,27 @@ public class SimpleTriggerExample1 {
         // 1. 调度器
         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 
-        // 2. 任务
+        // 2. 先创建 Job 并注册
         JobDetail jobDetail2 = JobBuilder.newJob(MyJob.class)
-                .withIdentity("job1", "group1") // 任务名称/任务分组名称
+                .storeDurably()
+                .withIdentity("job2", "group1") // 任务名称/任务分组名称
                 .build();
+        scheduler.addJob(jobDetail2, true); // 核心点1，注册 Job; true 表示覆盖已有的 Job
 
-        // 3. 触发器
+        // 3. 创建触发器并关联到已存在的 Job
         Trigger trigger2 = TriggerBuilder.newTrigger()
-                .withIdentity("trigger1", "group1") // 触发器名称/触发器分组名称
+                .withIdentity("trigger2", "group1") // 触发器名称/触发器分组名称
                 .startNow() // 立即开始
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                         .withIntervalInSeconds(10) // 每10秒执行一次
                         .withRepeatCount(5)) // 重复执行5次
-                // .forJob(jobDetail2)
-                .forJob("job1", "group1")
-                // .forJob(JobKey.jobKey("job1", "group1"))
+                .forJob(jobDetail2) // 关联已有的 Job
+                // .forJob("job2", "group1")
+                // .forJob(JobKey.jobKey("job2", "group1"))
                 .build();
+        scheduler.scheduleJob(trigger2); // 核心点2，注册触发器
 
-        // 4. 只需要将设置任务的触发器注册到调度器即可
-        scheduler.scheduleJob(trigger2);
-
-        // 5. 启动调度器
+        // 4. 启动调度器
         scheduler.start();
     }
 
