@@ -1,6 +1,5 @@
 package com.quartz.example.scheduler;
 
-import com.quartz.example.trigger.simple.MyJob;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 

@@ -1,6 +1,8 @@
-package com.quartz.example.trigger.simple;
+package com.quartz.example.scheduler;
 
-import org.quartz.*;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
