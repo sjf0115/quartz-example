@@ -28,7 +28,7 @@ public class WeeklyOnDayAndHourAndMinuteExample {
         Trigger trigger1 = TriggerBuilder.newTrigger()
                 .withIdentity("trigger1", "group1")
                 .startNow() // 立即开始
-                .withSchedule(CronScheduleBuilder.weeklyOnDayAndHourAndMinute(1, 12, 0))
+                .withSchedule(CronScheduleBuilder.weeklyOnDayAndHourAndMinute(2, 12, 0))// 每周一12点触发
                 .build();
 
         // 4. 将任务和触发器注册到调度器

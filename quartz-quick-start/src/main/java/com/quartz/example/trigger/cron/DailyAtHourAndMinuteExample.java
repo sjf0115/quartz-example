@@ -28,7 +28,7 @@ public class DailyAtHourAndMinuteExample {
         Trigger trigger1 = TriggerBuilder.newTrigger()
                 .withIdentity("trigger1", "group1")
                 .startNow() // 立即开始
-                .withSchedule(CronScheduleBuilder.dailyAtHourAndMinute(12, 0))
+                .withSchedule(CronScheduleBuilder.dailyAtHourAndMinute(12, 0))// 每天12点触发
                 .build();
 
         // 4. 将任务和触发器注册到调度器
