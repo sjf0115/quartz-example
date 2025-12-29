@@ -1,0 +1,15 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/quartz?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: root
+    password: root
+
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: never
+#      initialize-schema: always

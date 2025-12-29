@@ -14,6 +14,7 @@
         <module>quartz-quick-start</module>
         <module>spring-boot-quartz</module>
         <module>spring-boot-quartz-dynamic</module>
+        <module>spring-boot-quartz-store</module>
     </modules>
 
     <properties>
@@ -23,6 +24,7 @@
         <lombok.version>1.18.26</lombok.version>
         <junit.version>4.12</junit.version>
         <log4j.version>2.17.1</log4j.version>
+        <mysql.version>5.1.46</mysql.version>
     </properties>
 
     <dependencyManagement>
@@ -32,6 +34,13 @@
                 <groupId>org.quartz-scheduler</groupId>
                 <artifactId>quartz</artifactId>
                 <version>${quartz.version}</version>
+            </dependency>
+
+            <!-- MySQL -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
 
             <!-- Lombok -->
